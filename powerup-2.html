@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PowerUp | Crescita Organica. Clienti Reali.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --neon: #00E7EA;
+  --neon-dim: rgba(0,231,234,0.15);
+  --neon-glow: rgba(0,231,234,0.4);
+  --black: #020305;
+  --surface: #0a0c10;
+  --surface2: #0f1117;
+  --border: rgba(255,255,255,0.06);
+  --text: #e8eaf0;
+  --muted: #5a6070;
+  --white: #ffffff;
+}
+
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+
+html { scroll-behavior:smooth; }
+
+body {
+  background: var(--black);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── NOISE OVERLAY ─── */
+body::before {
+  content:'';
+  position:fixed;
+  inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity:0.025;
+  pointer-events:none;
+  z-index:9999;
+}
+
+/* ─── TYPOGRAPHY ─── */
+.display { font-family:'Bebas Neue',sans-serif; letter-spacing:0.02em; line-height:0.93; }
+.heading  { font-family:'Syne',sans-serif; font-weight:800; }
+.label    { font-family:'Syne',sans-serif; font-weight:600; letter-spacing:0.18em; text-transform:uppercase; font-size:0.72rem; }
+
+/* ─── NAV ─── */
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 clamp(24px,5vw,72px);
+  height:72px;
+  background: rgba(2,3,5,0.7);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.6rem; letter-spacing:0.08em;
+  color: var(--neon);
+}
+.nav-links { display:flex; gap:2.5rem; }
+.nav-links a {
+  font-family:'Syne',sans-serif; font-size:0.82rem; font-weight:600;
+  letter-spacing:0.1em; text-transform:uppercase;
+  color: var(--muted); text-decoration:none;
+  transition: color .25s;
+}
+.nav-links a:hover { color:#fff; }
+.nav-cta {
+  background: var(--neon);
+  color:#000; font-family:'Syne',sans-serif; font-weight:700;
+  font-size:0.78rem; letter-spacing:0.12em; text-transform:uppercase;
+  padding:12px 24px; border:none; cursor:pointer;
+  transition: box-shadow .3s, transform .2s;
+}
+.nav-cta:hover {
+  box-shadow: 0 0 30px var(--neon-glow);
+  transform:translateY(-1px);
+}
+.hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; }
+.hamburger span { display:block; width:24px; height:2px; background:#fff; transition:.3s; }
+
+/* ─── SECTIONS SHARED ─── */
+section { position:relative; }
+.container { max-width:1280px; margin:0 auto; padding:0 clamp(24px,5vw,72px); }
+
+/* ─── HERO ─── */
+#hero {
+  min-height:100vh;
+  display:flex; align-items:center;
+  overflow:hidden;
+  background: radial-gradient(ellipse 80% 60% at 70% 50%, rgba(0,100,110,0.18) 0%, transparent 70%),
+              radial-gradient(ellipse 50% 40% at 20% 80%, rgba(0,231,234,0.06) 0%, transparent 60%),
+              var(--black);
+}
+.hero-grid {
+  display:grid; grid-template-columns:1fr 420px; gap:80px;
+  align-items:center; padding-top:100px; padding-bottom:80px;
+}
+.hero-eyebrow {
+  display:inline-flex; align-items:center; gap:10px;
+  color: var(--neon); margin-bottom:32px;
+}
+.hero-eyebrow::before {
+  content:''; display:block; width:32px; height:1px; background:var(--neon);
+}
+.hero-h1 {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(5rem,10vw,10rem);
+  line-height:0.88;
+  color:#fff;
+  margin-bottom:36px;
+}
+.hero-h1 em { color:var(--neon); font-style:normal; }
+.hero-sub {
+  font-size:1.15rem; line-height:1.7; color:#8a95a8;
+  max-width:520px; margin-bottom:48px;
+}
+.hero-sub strong { color:#fff; font-weight:500; }
+.cta-row { display:flex; gap:16px; flex-wrap:wrap; }
+.btn-primary {
+  background:var(--neon); color:#000;
+  font-family:'Syne',sans-serif; font-weight:700;
+  font-size:0.82rem; letter-spacing:0.14em; text-transform:uppercase;
+  padding:18px 36px; border:none; cursor:pointer;
+  transition: box-shadow .3s, transform .2s;
+  white-space:nowrap;
+}
+.btn-primary:hover { box-shadow:0 0 50px var(--neon-glow); transform:translateY(-2px); }
+.btn-ghost {
+  background:transparent; color:#fff;
+  font-family:'Syne',sans-serif; font-weight:600;
+  font-size:0.82rem; letter-spacing:0.14em; text-transform:uppercase;
+  padding:18px 36px; border:1px solid rgba(255,255,255,0.15); cursor:pointer;
+  transition: border-color .3s, color .3s;
+}
+.btn-ghost:hover { border-color:var(--neon); color:var(--neon); }
+
+/* Hero stat card */
+.hero-aside { display:flex; flex-direction:column; gap:20px; }
+.stat-card {
+  background:var(--surface);
+  border:1px solid var(--border);
+  padding:28px 32px;
+  position:relative; overflow:hidden;
+  transition: border-color .3s;
+}
+.stat-card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:1px;
+  background:linear-gradient(90deg,transparent,var(--neon),transparent);
+  opacity:0; transition: opacity .3s;
+}
+.stat-card:hover::before { opacity:1; }
+.stat-card:hover { border-color:rgba(0,231,234,0.3); }
+.stat-num { font-family:'Bebas Neue',sans-serif; font-size:3.5rem; color:var(--neon); line-height:1; }
+.stat-label { color:var(--muted); font-size:0.8rem; letter-spacing:0.1em; text-transform:uppercase; margin-top:4px; }
+.stat-bar { margin-top:16px; height:3px; background:rgba(255,255,255,0.06); }
+.stat-fill { height:100%; background:var(--neon); transition:width 2s ease; }
+
+/* ─── MARQUEE ─── */
+.marquee-wrap {
+  overflow:hidden; border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+  padding:20px 0;
+  background: var(--surface);
+}
+.marquee-track {
+  display:flex; gap:64px; width:max-content;
+  animation: marquee 22s linear infinite;
+}
+.marquee-item {
+  font-family:'Bebas Neue',sans-serif; font-size:1.3rem;
+  letter-spacing:0.1em; color:var(--muted);
+  display:flex; align-items:center; gap:24px; white-space:nowrap;
+}
+.marquee-dot { width:6px; height:6px; background:var(--neon); border-radius:50%; flex-shrink:0; }
+@keyframes marquee { to { transform:translateX(-50%); } }
+
+/* ─── PROBLEMA ─── */
+#problema {
+  padding:clamp(80px,12vw,160px) 0;
+  background: var(--surface);
+}
+.problema-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+.big-q {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(3.5rem,7vw,7rem);
+  line-height:0.9; color:#fff;
+}
+.big-q em { color:var(--neon); font-style:normal; display:block; }
+.pain-list { list-style:none; display:flex; flex-direction:column; gap:0; }
+.pain-item {
+  display:flex; align-items:flex-start; gap:20px;
+  padding:24px 0; border-bottom:1px solid var(--border);
+  transition: padding-left .3s;
+}
+.pain-item:hover { padding-left:8px; }
+.pain-item:last-child { border-bottom:none; }
+.pain-icon {
+  width:40px; height:40px; flex-shrink:0;
+  border:1px solid rgba(0,231,234,0.25);
+  display:flex; align-items:center; justify-content:center;
+  color:var(--neon); font-size:1rem; margin-top:2px;
+}
+.pain-text strong { display:block; font-family:'Syne',sans-serif; font-weight:700; margin-bottom:4px; color:#fff; }
+.pain-text span { color:var(--muted); font-size:0.9rem; line-height:1.6; }
+
+/* ─── SOLUZIONE ─── */
+#soluzione { padding:clamp(80px,12vw,160px) 0; background:var(--black); }
+.sol-top { text-align:center; margin-bottom:80px; }
+.sol-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(3rem,7vw,7rem); color:#fff; }
+.sol-title em { color:var(--neon); font-style:normal; }
+.sol-sub { color:var(--muted); max-width:620px; margin:20px auto 0; font-size:1rem; line-height:1.7; }
+.services-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:2px; }
+.service-card {
+  background:var(--surface); padding:52px 48px;
+  border:1px solid var(--border);
+  transition: border-color .4s, background .4s;
+  position:relative; overflow:hidden;
+}
+.service-card::after {
+  content:''; position:absolute; bottom:0; left:0; right:0; height:2px;
+  background:var(--neon); transform:scaleX(0); transform-origin:left;
+  transition: transform .4s;
+}
+.service-card:hover::after { transform:scaleX(1); }
+.service-card:hover { border-color:rgba(0,231,234,0.2); background:var(--surface2); }
+.service-num { font-family:'Bebas Neue',sans-serif; font-size:4rem; color:rgba(0,231,234,0.12); line-height:1; margin-bottom:16px; }
+.service-icon { font-size:2rem; margin-bottom:20px; }
+.service-title { font-family:'Syne',sans-serif; font-weight:800; font-size:1.25rem; color:#fff; margin-bottom:12px; }
+.service-desc { color:var(--muted); line-height:1.7; font-size:0.9rem; }
+
+/* ─── RISULTATI ─── */
+#risultati { padding:clamp(80px,12vw,160px) 0; background:var(--surface); overflow:hidden; }
+.ris-header { text-align:center; margin-bottom:80px; }
+.ris-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(3rem,7vw,7rem); color:#fff; }
+.ris-title em { color:var(--neon); font-style:normal; }
+.totals-row {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin-bottom:80px;
+}
+.total-card {
+  background:var(--black); padding:52px 40px; text-align:center;
+  border:1px solid var(--border);
+  position:relative; overflow:hidden;
+}
+.total-card::before {
+  content:''; position:absolute; top:0; left:50%; transform:translateX(-50%);
+  width:60%; height:1px; background:var(--neon); opacity:0.5;
+}
+.total-num { font-family:'Bebas Neue',sans-serif; font-size:4.5rem; color:var(--neon); line-height:1; }
+.total-label { color:var(--muted); font-size:0.78rem; letter-spacing:0.15em; text-transform:uppercase; margin-top:8px; }
+.cases-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+.case-card {
+  background:var(--black); border:1px solid var(--border);
+  padding:36px 28px; text-align:center;
+  transition: border-color .3s, transform .3s;
+}
+.case-card:hover { border-color:rgba(0,231,234,0.3); transform:translateY(-6px); }
+.case-emoji { font-size:2.5rem; margin-bottom:16px; }
+.case-industry { color:var(--muted); font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase; margin-bottom:12px; }
+.case-views { font-family:'Bebas Neue',sans-serif; font-size:2.8rem; color:var(--neon); line-height:1; }
+.case-desc { color:var(--muted); font-size:0.8rem; margin-top:8px; }
+
+/* visualizzazioni bar chart */
+.mini-chart { margin-top:20px; display:flex; align-items:flex-end; gap:4px; height:50px; }
+.bar { flex:1; background:rgba(0,231,234,0.15); border-radius:1px 1px 0 0; transition:height .6s ease; }
+.bar.active { background:var(--neon); }
+
+/* ─── CLIENTI / SETTORI ─── */
+#clienti { padding:clamp(60px,8vw,120px) 0; background:var(--black); }
+.clienti-header { text-align:center; margin-bottom:60px; }
+.clienti-grid {
+  display:flex; flex-wrap:wrap; justify-content:center; gap:0;
+}
+.settore-tag {
+  padding:20px 32px; border:1px solid var(--border);
+  font-family:'Syne',sans-serif; font-weight:600;
+  font-size:0.85rem; letter-spacing:0.08em;
+  color:var(--muted); cursor:default;
+  transition: background .3s, color .3s, border-color .3s;
+  margin:-1px;
+}
+.settore-tag:hover { background:var(--neon-dim); color:#fff; border-color:rgba(0,231,234,0.3); }
+
+/* ─── ISTITUZIONI ─── */
+#istituzioni {
+  padding:clamp(80px,12vw,160px) 0;
+  background: linear-gradient(180deg, var(--surface) 0%, var(--black) 100%);
+  text-align:center;
+}
+.ist-badge {
+  display:inline-flex; align-items:center; gap:12px;
+  border:1px solid rgba(0,231,234,0.3); padding:10px 24px; margin-bottom:40px;
+  color:var(--neon);
+}
+.ist-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(2.5rem,5vw,5rem); color:#fff; margin-bottom:24px; }
+.ist-sub { color:var(--muted); max-width:560px; margin:0 auto 60px; line-height:1.7; }
+.ist-cards { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.ist-card {
+  background:var(--surface); border:1px solid var(--border);
+  padding:40px 32px; text-align:left;
+  transition: border-color .3s;
+}
+.ist-card:hover { border-color:rgba(0,231,234,0.25); }
+.ist-card-icon { font-size:2rem; margin-bottom:16px; }
+.ist-card-title { font-family:'Syne',sans-serif; font-weight:700; color:#fff; margin-bottom:10px; }
+.ist-card-text { color:var(--muted); font-size:0.875rem; line-height:1.65; }
+
+/* ─── RECENSIONI ─── */
+#recensioni { padding:clamp(80px,12vw,160px) 0; background:var(--surface); }
+.rev-header { text-align:center; margin-bottom:60px; }
+.rev-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(2.5rem,5vw,5rem); color:#fff; }
+.reviews-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.review-card {
+  background:var(--black); border:1px solid var(--border);
+  padding:40px 36px;
+  position:relative;
+  transition: border-color .3s, transform .3s;
+}
+.review-card:hover { border-color:rgba(0,231,234,0.25); transform:translateY(-4px); }
+.review-stars { color:var(--neon); font-size:0.9rem; letter-spacing:4px; margin-bottom:20px; }
+.review-quote {
+  font-size:1.05rem; line-height:1.65; color:#c8d0dc; margin-bottom:28px;
+  font-style:italic;
+}
+.review-author { display:flex; align-items:center; gap:14px; }
+.review-avatar {
+  width:44px; height:44px; border-radius:50%;
+  background:linear-gradient(135deg,rgba(0,231,234,0.3),rgba(0,100,110,0.2));
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Bebas Neue',sans-serif; font-size:1.2rem; color:var(--neon);
+  border:1px solid rgba(0,231,234,0.2);
+}
+.review-name { font-family:'Syne',sans-serif; font-weight:700; font-size:0.9rem; color:#fff; }
+.review-role { color:var(--muted); font-size:0.78rem; margin-top:2px; }
+
+/* ─── PROCESSO ─── */
+#processo { padding:clamp(80px,12vw,160px) 0; background:var(--black); }
+.proc-header { text-align:center; margin-bottom:80px; }
+.proc-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(2.5rem,5vw,5rem); color:#fff; }
+.steps-row { display:grid; grid-template-columns:repeat(4,1fr); gap:0; position:relative; }
+.steps-row::before {
+  content:''; position:absolute; top:36px; left:10%; right:10%; height:1px;
+  background:linear-gradient(90deg,transparent,var(--neon),transparent);
+  opacity:0.3;
+}
+.step {
+  padding:0 24px; text-align:center;
+}
+.step-num {
+  width:72px; height:72px; border:2px solid var(--neon);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Bebas Neue',sans-serif; font-size:2rem; color:var(--neon);
+  margin:0 auto 28px;
+  background:var(--black);
+  position:relative; z-index:1;
+  transition: background .3s, box-shadow .3s;
+}
+.step:hover .step-num { background:var(--neon-dim); box-shadow:0 0 30px var(--neon-glow); }
+.step-title { font-family:'Syne',sans-serif; font-weight:800; color:#fff; margin-bottom:12px; }
+.step-desc { color:var(--muted); font-size:0.875rem; line-height:1.65; }
+
+/* ─── CTA FINALE ─── */
+#cta-finale {
+  padding:clamp(100px,14vw,200px) 0;
+  background: radial-gradient(ellipse 70% 80% at 50% 50%, rgba(0,100,110,0.2) 0%, transparent 70%),
+              var(--black);
+  text-align:center; overflow:hidden;
+}
+.cta-label { color:var(--neon); margin-bottom:32px; display:inline-block; }
+.cta-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(4rem,10vw,10rem); color:#fff; line-height:0.88; margin-bottom:32px; }
+.cta-title em { color:var(--neon); font-style:normal; display:block; }
+.cta-sub { color:var(--muted); font-size:1.1rem; line-height:1.7; max-width:520px; margin:0 auto 56px; }
+.cta-disclaimer { margin-top:28px; color:var(--muted); font-size:0.78rem; letter-spacing:0.12em; text-transform:uppercase; }
+
+/* ─── FOOTER ─── */
+footer {
+  background:var(--surface); border-top:1px solid var(--border);
+  padding:64px clamp(24px,5vw,72px);
+}
+.footer-inner { max-width:1280px; margin:0 auto; display:grid; grid-template-columns:1fr auto auto; gap:80px; align-items:start; }
+.footer-brand { font-family:'Bebas Neue',sans-serif; font-size:1.8rem; color:var(--neon); margin-bottom:16px; }
+.footer-tagline { color:var(--muted); font-size:0.85rem; max-width:260px; line-height:1.6; }
+.footer-col-title { color:var(--neon); font-size:0.72rem; letter-spacing:0.2em; text-transform:uppercase; font-family:'Syne',sans-serif; font-weight:700; margin-bottom:20px; }
+.footer-links { list-style:none; display:flex; flex-direction:column; gap:12px; }
+.footer-links a { color:var(--muted); text-decoration:none; font-size:0.85rem; transition:color .2s; }
+.footer-links a:hover { color:#fff; }
+.footer-bottom { max-width:1280px; margin:48px auto 0; padding-top:24px; border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; }
+.footer-copy { color:var(--muted); font-size:0.78rem; letter-spacing:0.08em; }
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(30px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+@keyframes glowPulse {
+  0%,100% { box-shadow:0 0 20px var(--neon-glow); }
+  50%      { box-shadow:0 0 60px var(--neon-glow), 0 0 100px rgba(0,231,234,0.15); }
+}
+.fade-in { opacity:0; transform:translateY(30px); transition: opacity .7s ease, transform .7s ease; }
+.fade-in.visible { opacity:1; transform:translateY(0); }
+.glow-pulse { animation: glowPulse 3s ease-in-out infinite; }
+
+/* ─── MOBILE ─── */
+@media (max-width:900px) {
+  .hero-grid { grid-template-columns:1fr; }
+  .hero-aside { display:none; }
+  .problema-grid { grid-template-columns:1fr; }
+  .services-grid { grid-template-columns:1fr; }
+  .totals-row { grid-template-columns:1fr; }
+  .cases-grid { grid-template-columns:repeat(2,1fr); }
+  .ist-cards { grid-template-columns:1fr; }
+  .reviews-grid { grid-template-columns:1fr; }
+  .steps-row { grid-template-columns:1fr 1fr; gap:40px; }
+  .steps-row::before { display:none; }
+  .footer-inner { grid-template-columns:1fr; gap:40px; }
+  .footer-bottom { flex-direction:column; gap:12px; text-align:center; }
+  .nav-links { display:none; }
+  .hamburger { display:flex; }
+}
+@media (max-width:560px) {
+  .cases-grid { grid-template-columns:1fr; }
+  .steps-row { grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <div class="nav-logo">PowerUp</div>
+  <div class="nav-links">
+    <a href="#soluzione">Servizi</a>
+    <a href="#risultati">Risultati</a>
+    <a href="#recensioni">Clienti</a>
+    <a href="#processo">Processo</a>
+  </div>
+  <a href="https://calendly.com/poweruproma/30min" target="_blank" class="nav-cta" style="text-decoration:none;display:inline-block;">Prenota una Call</a>
+  <div class="hamburger" onclick="this.classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-eyebrow label fade-in">Growth Engine Organico</div>
+        <h1 class="hero-h1 fade-in" style="transition-delay:.1s">
+          Più clienti,<br/>
+          <em>non più</em><br/>
+          visualizzazioni.
+        </h1>
+        <p class="hero-sub fade-in" style="transition-delay:.2s">
+          Trasformiamo contenuti organici in <strong>richieste reali</strong>. 
+          La crescita non è un caso, è ingegneria.
+        </p>
+        <div class="cta-row fade-in" style="transition-delay:.3s">
+          <button class="btn-primary glow-pulse" onclick="scrollCTA()">Prenota una call conoscitiva</button>
+          <button class="btn-ghost" onclick="document.querySelector('#risultati').scrollIntoView({behavior:'smooth'})">Guarda i risultati →</button>
+        </div>
+      </div>
+
+      <div class="hero-aside fade-in" style="transition-delay:.4s">
+        <div class="stat-card">
+          <div class="stat-num">4.7M+</div>
+          <div class="stat-label">Visualizzazioni Generate</div>
+          <div class="stat-bar"><div class="stat-fill" style="width:92%"></div></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">300+</div>
+          <div class="stat-label">Clienti Reali Generati</div>
+          <div class="stat-bar"><div class="stat-fill" style="width:78%"></div></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">+800%</div>
+          <div class="stat-label">Crescita Media</div>
+          <div class="stat-bar"><div class="stat-fill" style="width:100%"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── MARQUEE ── -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <div class="marquee-item"><span class="marquee-dot"></span>Crescita Organica</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Clienti Reali</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Posizionamento Brand</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Contenuti Virali</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Strategia Documentata</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Zero Dipendenza dagli Ads</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Risultati Misurabili</div>
+    <!-- duplicate for seamless loop -->
+    <div class="marquee-item"><span class="marquee-dot"></span>Crescita Organica</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Clienti Reali</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Posizionamento Brand</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Contenuti Virali</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Strategia Documentata</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Zero Dipendenza dagli Ads</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Risultati Misurabili</div>
+  </div>
+</div>
+
+<!-- ── PROBLEMA ── -->
+<section id="problema">
+  <div class="container">
+    <div class="problema-grid">
+      <div class="fade-in">
+        <div class="label" style="color:var(--neon);margin-bottom:24px;">Il vero problema</div>
+        <div class="big-q">
+          I like<br/>non<br/>pagano<br/><em>le bollette.</em>
+        </div>
+      </div>
+      <div class="fade-in" style="transition-delay:.15s">
+        <ul class="pain-list">
+          <li class="pain-item">
+            <div class="pain-icon">✕</div>
+            <div class="pain-text">
+              <strong>Contenuti che fanno numeri, zero clienti</strong>
+              <span>Migliaia di view, nessuna richiesta. La strategia manca, non la visibilità.</span>
+            </div>
+          </li>
+          <li class="pain-item">
+            <div class="pain-icon">✕</div>
+            <div class="pain-text">
+              <strong>Brand invisibile nel mercato</strong>
+              <span>I competitor ti superano non perché sono migliori, ma perché sono più posizionati.</span>
+            </div>
+          </li>
+          <li class="pain-item">
+            <div class="pain-icon">✕</div>
+            <div class="pain-text">
+              <strong>Dipendenza dall'algoritmo</strong>
+              <span>Pubblicare e sperare non è una strategia. È una roulette.</span>
+            </div>
+          </li>
+          <li class="pain-item">
+            <div class="pain-icon">✕</div>
+            <div class="pain-text">
+              <strong>Nessuna prevedibilità</strong>
+              <span>Senza sistema, la crescita è casuale. Con PowerUp, è ingegnerizzata.</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SOLUZIONE ── -->
+<section id="soluzione">
+  <div class="container">
+    <div class="sol-top fade-in">
+      <div class="label" style="color:var(--neon);margin-bottom:20px;">La nostra risposta</div>
+      <div class="sol-title">La potenza<br/><em>dell'organico.</em></div>
+      <p class="sol-sub">Non siamo un'agenzia creativa. Siamo un acceleratore di business che usa i contenuti come carburante per generare clienti reali.</p>
+    </div>
+    <div class="services-grid fade-in" style="transition-delay:.15s">
+      <div class="service-card">
+        <div class="service-num">01</div>
+        <div class="service-icon">🎬</div>
+        <div class="service-title">Creazione Contenuti Virali</div>
+        <p class="service-desc">Video, foto e copy progettati per fermare lo scroll, fare condividere e — soprattutto — convertire. Ogni contenuto ha un obiettivo business.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-num">02</div>
+        <div class="service-icon">📡</div>
+        <div class="service-title">Strategia Social Organica</div>
+        <p class="service-desc">Costruiamo sistemi di crescita documentati, non campagne one-shot. Ogni piattaforma, ogni formato, ogni frequenza ha una logica dietro.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-num">03</div>
+        <div class="service-icon">🎯</div>
+        <div class="service-title">Posizionamento Brand</div>
+        <p class="service-desc">Definiamo la tua identità per renderti la scelta ovvia nel tuo mercato. Il brand giusto vende prima ancora che il cliente parli con te.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-num">04</div>
+        <div class="service-icon">📈</div>
+        <div class="service-title">Gestione e Crescita Continuativa</div>
+        <p class="service-desc">Non sparimmo dopo il setup. Monitoriamo, ottimizziamo e scaliamo ogni mese. La crescita è un processo, non un evento.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── RISULTATI ── -->
+<section id="risultati">
+  <div class="container">
+    <div class="ris-header fade-in">
+      <div class="label" style="color:var(--neon);margin-bottom:20px;">Numeri reali, clienti reali</div>
+      <div class="ris-title">I risultati<br/><em>parlano chiaro.</em></div>
+    </div>
+
+    <div class="totals-row fade-in" style="transition-delay:.1s">
+      <div class="total-card">
+        <div class="total-num">4.7M+</div>
+        <div class="total-label">Visualizzazioni Organiche Totali</div>
+      </div>
+      <div class="total-card">
+        <div class="total-num">300+</div>
+        <div class="total-label">Clienti Reali Generati</div>
+      </div>
+      <div class="total-card">
+        <div class="total-num">+800%</div>
+        <div class="total-label">Crescita Media per Cliente</div>
+      </div>
+    </div>
+
+    <div class="cases-grid fade-in" style="transition-delay:.2s">
+      <div class="case-card">
+        <div class="case-emoji">✂️</div>
+        <div class="case-industry">Barbershop</div>
+        <div class="case-views">1.1M</div>
+        <div class="case-desc">Visualizzazioni organiche in 3 mesi</div>
+        <div class="mini-chart">
+          <div class="bar" style="height:20%"></div>
+          <div class="bar" style="height:35%"></div>
+          <div class="bar" style="height:50%"></div>
+          <div class="bar" style="height:65%"></div>
+          <div class="bar" style="height:80%"></div>
+          <div class="bar active" style="height:100%"></div>
+        </div>
+      </div>
+      <div class="case-card">
+        <div class="case-emoji">💆</div>
+        <div class="case-industry">Centro Estetico</div>
+        <div class="case-views">652K</div>
+        <div class="case-desc">Visualizzazioni organiche in 2 mesi</div>
+        <div class="mini-chart">
+          <div class="bar" style="height:15%"></div>
+          <div class="bar" style="height:30%"></div>
+          <div class="bar" style="height:45%"></div>
+          <div class="bar" style="height:60%"></div>
+          <div class="bar" style="height:75%"></div>
+          <div class="bar active" style="height:90%"></div>
+        </div>
+      </div>
+      <div class="case-card">
+        <div class="case-emoji">🏋️</div>
+        <div class="case-industry">Palestra</div>
+        <div class="case-views">745K</div>
+        <div class="case-desc">Visualizzazioni organiche in 4 mesi</div>
+        <div class="mini-chart">
+          <div class="bar" style="height:10%"></div>
+          <div class="bar" style="height:25%"></div>
+          <div class="bar" style="height:55%"></div>
+          <div class="bar" style="height:70%"></div>
+          <div class="bar" style="height:85%"></div>
+          <div class="bar active" style="height:95%"></div>
+        </div>
+      </div>
+      <div class="case-card">
+        <div class="case-emoji">🍽️</div>
+        <div class="case-industry">Ristorazione</div>
+        <div class="case-views">2.3M</div>
+        <div class="case-desc">Visualizzazioni organiche in 5 mesi</div>
+        <div class="mini-chart">
+          <div class="bar" style="height:5%"></div>
+          <div class="bar" style="height:20%"></div>
+          <div class="bar" style="height:45%"></div>
+          <div class="bar" style="height:70%"></div>
+          <div class="bar" style="height:88%"></div>
+          <div class="bar active" style="height:100%"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CLIENTI / SETTORI ── -->
+<section id="clienti">
+  <div class="container">
+    <div class="clienti-header fade-in">
+      <div class="label" style="color:var(--neon);margin-bottom:20px;">Con chi lavoriamo</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,4vw,4.5rem);color:#fff;">Attività locali. Risultati globali.</div>
+    </div>
+    <div class="clienti-grid fade-in" style="transition-delay:.15s">
+      <div class="settore-tag">✂️ Barbershop</div>
+      <div class="settore-tag">💆 Centri Estetici</div>
+      <div class="settore-tag">🏋️ Palestre & Fitness</div>
+      <div class="settore-tag">🍽️ Ristoranti</div>
+      <div class="settore-tag">👗 Moda & Retail</div>
+      <div class="settore-tag">🦷 Studi Medici</div>
+      <div class="settore-tag">🏠 Agenzie Immobiliari</div>
+      <div class="settore-tag">🎓 Formazione</div>
+      <div class="settore-tag">🐾 Pet Care</div>
+      <div class="settore-tag">🔧 Artigianato</div>
+      <div class="settore-tag">☕ Bar & Caffetterie</div>
+      <div class="settore-tag">💻 PMI & Professionisti</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ISTITUZIONI ── -->
+<section id="istituzioni">
+  <div class="container">
+    <div class="fade-in">
+      <div class="ist-badge label">
+        <span>★</span> Autorità & Istituzioni
+      </div>
+      <div class="ist-title">Scelti anche dalle<br/>istituzioni.</div>
+      <p class="ist-sub">Collaboriamo con scuole e realtà istituzionali per portare innovazione e comunicazione digitale nel territorio. Perché la crescita non è solo per le aziende.</p>
+    </div>
+    <div class="ist-cards fade-in" style="transition-delay:.15s">
+      <div class="ist-card">
+        <div class="ist-card-icon">🏫</div>
+        <div class="ist-card-title">Scuole & Istituti</div>
+        <p class="ist-card-text">Programmi di comunicazione digitale per istituti scolastici che vogliono posizionarsi nel territorio e attrarre nuove iscrizioni.</p>
+      </div>
+      <div class="ist-card">
+        <div class="ist-card-icon">🏛️</div>
+        <div class="ist-card-title">Enti Pubblici</div>
+        <p class="ist-card-text">Strategie di comunicazione organica per enti e associazioni che hanno bisogno di raggiungere la comunità in modo autentico e diretto.</p>
+      </div>
+      <div class="ist-card">
+        <div class="ist-card-icon">🤝</div>
+        <div class="ist-card-title">Fondazioni & Associazioni</div>
+        <p class="ist-card-text">Posizionamento e contenuti per realtà no-profit che vogliono amplificare il loro impatto sul territorio senza dipendere da budget pubblicitari.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── RECENSIONI ── -->
+<section id="recensioni">
+  <div class="container">
+    <div class="rev-header fade-in">
+      <div class="label" style="color:var(--neon);margin-bottom:20px;">Cosa dicono i clienti</div>
+      <div class="rev-title">Risultati reali.<br/>Parole reali.</div>
+    </div>
+    <div class="reviews-grid fade-in" style="transition-delay:.15s">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-quote">"Abbiamo iniziato a ricevere clienti ogni settimana grazie ai contenuti. Prima pubblicavamo nel vuoto. Ora ogni video porta prenotazioni."</p>
+        <div class="review-author">
+          <div class="review-avatar">M</div>
+          <div>
+            <div class="review-name">Marco R.</div>
+            <div class="review-role">Titolare, Barbershop Milano</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-quote">"Finalmente i social portano risultati veri. Non solo like. In tre mesi abbiamo riempito l'agenda di nuovi clienti senza spendere in pubblicità."</p>
+        <div class="review-author">
+          <div class="review-avatar">S</div>
+          <div>
+            <div class="review-name">Sara L.</div>
+            <div class="review-role">Proprietaria, Centro Estetico Roma</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-quote">"In pochi mesi siamo cresciuti tantissimo. La strategia di PowerUp ha trasformato il nostro locale da sconosciuto a punto di riferimento della zona."</p>
+        <div class="review-author">
+          <div class="review-avatar">L</div>
+          <div>
+            <div class="review-name">Luca T.</div>
+            <div class="review-role">Gestore, Ristorante Napoli</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROCESSO ── -->
+<section id="processo">
+  <div class="container">
+    <div class="proc-header fade-in">
+      <div class="label" style="color:var(--neon);margin-bottom:20px;">Come funziona</div>
+      <div class="proc-title">Il percorso.</div>
+    </div>
+    <div class="steps-row fade-in" style="transition-delay:.15s">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-title">Analisi Business</div>
+        <p class="step-desc">Smontiamo il tuo business per trovare i punti di forza, il pubblico ideale e le opportunità organiche nascoste.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-title">Strategia</div>
+        <p class="step-desc">Costruiamo un piano documentato: piattaforme, formati, frequenze, messaggi. Tutto con un obiettivo chiaro.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-title">Produzione Contenuti</div>
+        <p class="step-desc">Creiamo video, foto e testi progettati per convertire — non solo per piacere all'algoritmo.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-title">Crescita & Scale</div>
+        <p class="step-desc">Monitoriamo i dati, ottimizziamo ogni settimana e scaliamo quello che funziona. La crescita è continua.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA FINALE ── -->
+<section id="cta-finale">
+  <div class="container" style="text-align:center;">
+    <div class="cta-label label fade-in">È il momento di agire</div>
+    <div class="cta-title fade-in" style="transition-delay:.1s">
+      Se vuoi crescere<br/>
+      <em>davvero,</em><br/>
+      questo è il momento.
+    </div>
+    <p class="cta-sub fade-in" style="transition-delay:.2s">
+      Smetti di sperare nell'algoritmo. Prendi il controllo della tua presenza organica e trasforma la tua attività in una macchina da clienti.
+    </p>
+    <div class="fade-in" style="transition-delay:.3s">
+      <button class="btn-primary glow-pulse" style="font-size:1rem;padding:22px 52px;" onclick="scrollCTA()">
+        Prenota la tua call conoscitiva →
+      </button>
+      <div class="cta-disclaimer">Posti limitati · Solo per attività serie · Risposta entro 24h</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">PowerUp</div>
+      <p class="footer-tagline">Non siamo un'agenzia. Siamo il tuo growth engine organico.</p>
+      <p style="color:var(--muted);font-size:0.72rem;margin-top:24px;">P.IVA 01234567890</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Canali</div>
+      <ul class="footer-links">
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">TikTok</a></li>
+        <li><a href="#">LinkedIn</a></li>
+        <li><a href="#">YouTube</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Contatti</div>
+      <ul class="footer-links">
+        <li><a href="mailto:hello@powerup.it">hello@powerup.it</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Termini di Servizio</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2025 PowerUp. Crescita ingegnerizzata.</span>
+    <span class="footer-copy">Made with 🔥 per le attività che vogliono dominare.</span>
+  </div>
+</footer>
+
+<script>
+// ── SCROLL REVEAL ──
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting) { e.target.classList.add('visible'); }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// ── OPEN CALENDLY ──
+const CALENDLY_URL = 'https://calendly.com/poweruproma/30min';
+function scrollCTA() {
+  window.open(CALENDLY_URL, '_blank');
+}
+
+// ── COUNTER ANIMATION ──
+function animateCount(el, target, suffix='') {
+  let start = 0;
+  const dur = 1800;
+  const step = timestamp => {
+    if(!start) start = timestamp;
+    const prog = Math.min((timestamp - start) / dur, 1);
+    const eased = 1 - Math.pow(1 - prog, 3);
+    el.textContent = Math.round(eased * target).toLocaleString('it') + suffix;
+    if(prog < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+const statsObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting) {
+      const nums = e.target.querySelectorAll('.total-num, .stat-num');
+      nums.forEach(n => {
+        const txt = n.textContent;
+        if(txt.includes('4.7M')) { let c=0; const iv=setInterval(()=>{ c+=0.1; n.textContent=(c).toFixed(1)+'M+'; if(c>=4.7)clearInterval(iv); },30); }
+        if(txt.includes('300+')) animateCount(n, 300, '+');
+        if(txt.includes('800%')) animateCount(n, 800, '%');
+      });
+      statsObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('#risultati .totals-row, #hero .hero-aside').forEach(el => statsObs.observe(el));
+
+// ── ACTIVE NAV ──
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  sections.forEach(s => {
+    if(window.scrollY >= s.offsetTop - 120) cur = s.id;
+  });
+  navLinks.forEach(a => {
+    a.style.color = a.getAttribute('href') === '#'+cur ? 'var(--neon)' : '';
+  });
+}, { passive:true });
+</script>
+</body>
+</html>
